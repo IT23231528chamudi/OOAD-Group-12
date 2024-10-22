@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendour Lux Shopping</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+
+<header>
+    <div class="header-top">
+        <!-- Navigation menu (aligned to the left) -->
+        <nav>
+          <ul class="nav-list">
+            <li><a href="#">HOME</a></li>
+            <li class="dropdown"> <!-- Dropdown for Products -->
+                <a href="#">PRODUCTS</a>
+                <ul class="dropdown-content">
+                    <li><a href="allproducts.html">ALL PRODUCTS</a></li>
+                    <li><a href="bedding.html">BEDDING</a></li>
+                    <li><a href="bedlinen.html">BED LINEN</a></li>
+                    <li><a href="bathlinen.html">BATH LINEN</a></li>
+                </ul>
+            </li>
+            <li><a href="promotion.html">PROMOTIONS</a></li>
+            <li><a href="contact.html">CONTACT US</a></li>
+        </ul>
+        </nav>
+        
+        <!-- Logo in the center -->
+        <div class="logo">SPLENDOUR LUX</div>
+        
+        <!-- Search bar, profile, wishlist, cart (aligned to the right) -->
+        <div class="right-icons">
+            <!-- Search bar -->
+            <form class="search-bar" action="/search" method="GET">
+                <input type="text" name="q" placeholder="Search">
+                <button type="submit" class="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </form>
+            <!-- Updated Profile icon (minimalist) -->
+            <a href="Registration.html" class="profile-icon" title="Profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                </svg>
+            </a>
+            <!-- Wishlist (heart) icon -->
+            <a href="wishlist.html" class="wishlist-icon" title="Wishlist">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M20.8 4.6c-1.8-1.8-4.8-1.8-6.6 0L12 6.8l-2.2-2.2c-1.8-1.8-4.8-1.8-6.6 0-1.8 1.8-1.8 4.8 0 6.6l8.8 8.8 8.8-8.8c1.8-1.8 1.8-4.8 0-6.6z"></path>
+                </svg>
+            </a>
+            <!-- Shopping cart icon -->
+            <a href="cart.html" class="cart-icon" title="Cart">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61H19a2 2 0 001.99-1.74L23 6H6"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</header>
+<div class="slider">
+    <!-- Slide 1 -->
+    <div class="slides fade">
+      <img src="https://www.ulapbedsheetus.com/cdn/shop/files/Black_Minimalist_Bedding_Set_100_Cotton.webp?v=1726624603&width=2000" alt="Black Minimalist Bedding Set" style="width:100%">
+    </div>
+  
+    <!-- Slide 2 -->
+    <div class="slides fade">
+      <img src="https://estliving.com/wp-content/uploads/2022/04/est-Living_Luxury-Linen_Bespoke-Bedlinen_17-750x540.jpg" alt="Luxury Linen Bedlinen" style="width:100%">
+    </div>
+  
+    <!-- Slide 3 -->
+    <div class="slides fade">
+      <img src="https://www.peanutextile.com/wp-content/uploads/2020/04/hotel-bath-sheet-3.jpg" alt="Hotel Bath Sheet" style="width:100%">
+    </div>
+  
+    <!-- Slide 4 -->
+    <div class="slides fade">
+      <img src="https://www.manchesterfactory.com.au/cdn/shop/articles/BATHROBE_COVER_800x.png?v=1674787766" alt="Bathrobe Cover" style="width:100%">
+    </div>
+  
+    <!-- Navigation buttons (next/prev) -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+  
+  <!-- Dots for manual control -->
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span> 
+    <span class="dot" onclick="currentSlide(2)"></span> 
+    <span class="dot" onclick="currentSlide(3)"></span> 
+    <span class="dot" onclick="currentSlide(4)"></span> 
+  </div>
+  
+  <!-- JavaScript for slider functionality -->
+  <script>
+  let slideIndex = 1;
+  showSlides(slideIndex);
+  
+  // Automatic slide show
+  let slideInterval = setInterval(() => {
+    plusSlides(1);
+  }, 3000); // Change image every 3 seconds
+  
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+    resetInterval(); // Reset interval when manual navigation occurs
+  }
+  
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+    resetInterval(); // Reset interval when manual navigation occurs
+  }
+  
+  // Show slides
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("slides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";  
+    dots[slideIndex - 1].className += " active";
+  }
+  
+  // Reset the slide interval
+  function resetInterval() {
+    clearInterval(slideInterval); // Clear existing interval
+    slideInterval = setInterval(() => {
+      plusSlides(1);
+    }, 3000); // Reset to 3 seconds
+  }
+  </script>
+  <br><br>
+      <!-- Product Categories Section (Tiles with Links) -->
+      <div class="categories-section">
+        <!-- Bedding Tile -->
+        <a href="bedding.html"> <!-- Link to Bedding page -->
+            <div class="category-tile">
+                <img src="https://m.media-amazon.com/images/I/71bYxlxju2L._AC_UF894,1000_QL80_.jpg" alt="Bedding">
+                <div class="category-name">Bedding
+                    <hr> <!-- Horizontal line below the category name -->
+                <p class="shop-now">SHOP NOW</p> <!-- Shop Now text -->
+                </div>
+            </div>
+        </a>
+
+        <!-- Bed Linen Tile -->
+        <a href="bedlinen.html"> <!-- Link to Bed Linen page -->
+            <div class="category-tile">
+                <img src="https://www.shutterstock.com/image-photo/top-view-attractive-young-woman-600nw-653166973.jpg" alt="Bed Linen">
+                <div class="category-name">Bed Linen
+                    <hr>
+                <p class="shop-now">SHOP NOW</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Bath Linen Tile -->
+        <a href="bathlinen.html"> <!-- Link to Bath Linen page -->
+            <div class="category-tile">
+                <img src="https://mclifestyle.in/wp-content/uploads/2019/07/bath-linen-1.jpg" alt="Bath Linen">
+                <div class="category-name">Bath Linen
+                    <hr>
+                <p class="shop-now">SHOP NOW</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Footer -->
+<footer>
+  <div class="footer-container">
+      <!-- About Section -->
+      <div class="footer-section">
+          <a href="about.html"><h4>ABOUT</h4></a>
+          <ul>
+              <li>Our Story</li>
+              <li>Our Mission</li>
+          </ul>
+      </div>
+
+      <!-- Customer Care Section -->
+      <div class="footer-section">
+          <h4>CUSTOMER CARE</h4>
+          <ul>
+              <li><a href="ordertrack.html">Track Your Order</a></li>
+              <li><a href="details.html">Order Details</a></li>
+              <li><a href="#faq">FAQ</a></li>
+          </ul>
+      </div>
+
+      <!-- Contact Us Section -->
+      <div class="footer-section">
+          <a href="contact.html"><h4>CONTACT US</h4></a>
+          <ul>
+              <li><a href="#">Message</a></li>
+              <li><a href="#">Hotline</a></li>
+              <li><a href="#">Email</a></li>
+          </ul>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="footer-section">
+          <h4>SECTION 4</h4>
+          <ul>
+              <li><a href="#">Link 1</a></li>
+              <li><a href="#">Link 2</a></li>
+          </ul>
+      </div>
+  </div>
+
+  <div class="footer-bottom">
+      &copy; 2024 Splendour Lux. All Rights Reserved.
+  </div>
+</footer>
+<!-- Other content of your website -->
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+/* Reset body margin and padding to avoid shifting */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+/* Style for the header top: logo, nav, search, and icons */
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 40px; /* Increased padding for a bigger header */
+    background-color: #333;
+    color: white;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn't push the header beyond the page */
+}
+
+/* Navigation menu on the left */
+nav ul {
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    color: #ddd;
+}
+
+/* Underline on hover for navigation links */
+nav ul li a:hover {
+    text-decoration: underline; /* Underline the text */
+    color: #ddd; /* Optional: Change the color on hover */
+}
+
+/* Logo in the center */
+.logo {
+    font-size: 30px; /* Slightly increased size for the logo */
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
+    color: white;
+}
+
+/* Ensure the right-icons container has enough space and doesn't get cut off */
+.right-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align icons to the right */
+    flex-wrap: nowrap; /* Prevent icons from wrapping */
+    padding-right: 20px; /* Add padding to ensure full visibility */
+    gap: 20px; /* Add space between elements for better layout */
+}
+
+/* Search bar and icon styles */
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 5px;
+    width: 150px; /* Adjusted width to create more room for icons */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.search-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: -30px; /* Overlay icon inside input */
+    color: #555;
+}
+
+.search-button svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Icon styles (profile, wishlist, cart) */
+.right-icons a {
+    color: white;
+    text-decoration: none;
+}
+
+.right-icons a svg {
+    width: 22px; /* Ensure icons are clearly visible */
+    height: 22px;
+    stroke-width: 2;
+}
+
+/* Icon hover effect */
+.right-icons a:hover {
+    color: #ddd;
+}
+
+/* Maintain the original header size */
+header {
+    background-color: #333;
+    color: white;
+    padding-bottom: 0;
+}
+
+/* Container for the slider */
+.slider {
+    position: relative;
+    max-width: 100%; /* Full-width */
+    height: 600px; /* Set a fixed height */
+    margin: auto; /* Center the slider */
+    overflow: hidden; /* Hide overflow */
+  }
+  
+  /* Hide all slides by default */
+  .slides {
+    display: none; 
+    height: 100%; /* Full height of the slider */
+  }
+  
+  /* Set images to fit the slider */
+  .slides img {
+    height: 100%; /* Ensure images fit the height */
+    width: auto; /* Keep aspect ratio */
+    object-fit: cover; /* Cover the slider area */
+  }
+  
+  /* Navigation buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  .prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Dots */
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .active {
+    background-color: #717171;
+  }
+  
+  /* Categories Section */
+.categories-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px; /* Adjusts the space between tiles */
+}
+
+/* Each tile */
+.category-tile {
+    position: relative;
+    width: 370px; /* Original width */
+    height: 500px; /* Original height */
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-align: center; /* Center text inside the tile */
+}
+
+.category-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.5s ease;
+}
+
+.category-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 25px;
+    font-weight: lighter;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    text-align: center;
+}
+
+.category-name hr {
+    width: 300px;
+    border: 1px solid white;
+    margin: 10px auto; /* Space between the name and the line */
+}
+
+.shop-now {
+    font-size: 12px;
+    font-weight: normal;
+    color: white;
+}
+
+.category-tile:hover img {
+    filter: brightness(50%);
+}
+
+.category-tile:hover .category-name {
+    opacity: 1;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .categories-section {
+        flex-direction: column;
+    }
+
+    .category-tile {
+        width: 100%; /* Full width on smaller screens */
+        height: 350px;
+    }
+
+    .category-name {
+        font-size: 24px;
+    }
+}
+
+/* Dropdown container */
+.nav-list li.dropdown {
+    position: relative; /* Position for absolute dropdown */
+}
+
+/* Dropdown content */
+.nav-list li .dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: #333; /* Same background as header */
+    min-width: 160px; /* Width of the dropdown */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    z-index: 1; /* Ensure it appears above other content */
+    list-style: none; /* No bullets */
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+}
+
+/* Dropdown items */
+.nav-list li .dropdown-content li {
+    padding: 10px; /* Space for items */
+}
+
+/* Links inside dropdown */
+.nav-list li .dropdown-content li a {
+    color: white; /* Text color */
+    text-decoration: none; /* No underline */
+    display: block; /* Full-width */
+}
+
+/* Hover effect for dropdown items */
+.nav-list li .dropdown-content li a:hover {
+    background-color: #555; /* Change background on hover */
+}
+
+/* Show dropdown on hover */
+.nav-list li.dropdown:hover .dropdown-content {
+    display: block; /* Show when hovering */
+}
+
+/* Optional: Adjusting main nav list styles for consistency */
+.nav-list {
+    display: flex; /* Flexbox for horizontal layout */
+    justify-content: flex-start; /* Align items */
+    list-style: none; /* No bullets */
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+}
+
+.nav-list li {
+    margin-right: 20px; /* Space between items */
+}
+
+.nav-list li a {
+    color: white; /* Link color */
+    text-decoration: none; /* No underline */
+    font-size: 14px; /* Font size */
+}
+
+.nav-list li a:hover {
+    color: #ddd; /* Change color on hover */
+}
+
+/* Dropdown content */
+.nav-list li .dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: #616060a8; /* Background color */
+    min-width: 160px; /* Width of the dropdown */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    z-index: 1; /* Ensure it appears above other content */
+    list-style: none; /* No bullets */
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+    
+}
+
+/* Dropdown items */
+.nav-list li .dropdown-content li {
+    padding: 12px 16px; /* Padding for items */
+}
+
+/* Links inside dropdown */
+.nav-list li .dropdown-content li a {
+    color: #fff; /* Text color */
+    text-decoration: none; /* No underline */
+    display: block; /* Full-width */
+    font-family: sans-serif; /* Change font family */
+    font-weight: 300; /* Make the font bold */
+    font-size: 12px; /* Adjust font size */
+}
+
+/* Hover effect for dropdown items */
+.nav-list li .dropdown-content li a:hover {
+    background-color: #848383; /* Change background on hover */
+}
+
+/* Show dropdown on hover */
+.nav-list li.dropdown:hover .dropdown-content {
+    display: block; /* Show when hovering */
+    opacity: 0; /* Start hidden */
+    animation: fadeIn 0.3s forwards; /* Fade-in effect */
+}
+
+/* Keyframes for fade-in effect */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 40px; /* Adjust padding as needed */
+    text-align: left;
+}
+
+/* Container for footer sections */
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Individual footer section */
+.footer-section {
+    flex: 1; /* Equal space for each section */
+    margin-right: 20px; /* Space between sections */
+}
+
+.footer-section:last-child {
+    margin-right: 0; /* No margin on the last section */
+}
+
+/* Section heading styles */
+.footer-section h4 {
+    margin-bottom: 10px; /* Space below heading */
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size: 15px;
+}
+
+/* Unordered list styles */
+.footer-section ul {
+    list-style-type: none; /* No bullets */
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
+
+/* Link styles */
+.footer-section a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #ddd; /* Optional: Change color on hover */
+}
+
+/* Footer bottom styles */
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px; /* Adjust font size */
+}
+
+
