@@ -16,7 +16,7 @@ import RegistrationForm from "./components/Product/RegistrationForm";
 import CustomerReviews from "./components/Product/CustomerReviews";
 import ProductDetail from "./components/Product/ProductDetail";
 import ProfileIcon from "./components/ProfileIcon";
-
+import UserProfile from "./screens/UserProfile";
  
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
             <Route path="/CustomerReviews" element={<CustomerReviews />} />
             <Route path="/ProductDetail" element={<ProductDetail />} />
             <Route path="/ProfileIcon" element={<ProfileIcon />} />
+            <Route path="/user" element={<UserProfile/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
