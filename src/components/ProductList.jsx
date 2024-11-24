@@ -1,50 +1,42 @@
-// ProductList.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
+import axios from 'axios';
 
 const ProductList = () => {
-    const products = [
-        {
-            name: "Skin care cream",
-            price: 74.99,
-            image: "https://pagedone.io/asset/uploads/1701157806.png",
-        },
-        {
-            name: "Men’s Facial",
-            price: 25,
-            image: "https://pagedone.io/asset/uploads/1701157826.png",
-        },
-        {
-            name: "Dark circles serum",
-            price: 199.99,
-            image: "https://pagedone.io/asset/uploads/1701157844.png",
-        },
-        {
-            name: "Dark circles serum",
-            price: 199.99,
-            image: "https://pagedone.io/asset/uploads/1701157844.png",
-        },
-        {
-            name: "Dark circles serum",
-            price: 199.99,
-            image: "https://pagedone.io/asset/uploads/1701157844.png",
-        },
-        {
-            name: "Dark circles serum",
-            price: 199.99,
-            image: "https://pagedone.io/asset/uploads/1701157844.png",
-        },
-        {
-            name: "Dark circles serum",
-            price: 199.99,
-            image: "https://pagedone.io/asset/uploads/1701157844.png",
-        },
-        {
-            name: "Dark circles serum",
-            price: 199.99,
-            image: "https://pagedone.io/asset/uploads/1701157844.png",
-        },
-    ];
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // Fetch products from API
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get('http://localhost:8081/api/products');
+                console.log(response.data);
+                const apiProducts = response.data.map((product) => ({
+                    name: product.productName,
+                    price: product.price,
+                    image: product.productImage || 'https://via.placeholder.com/150', // Default image if null
+                    id: product.productID
+                }));
+                setProducts(apiProducts);
+                setLoading(false);
+            } catch (err) {
+                setError(err.message || 'Failed to fetch products.');
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    if (loading) {
+        return <div>Loading products...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <div className="main-content">

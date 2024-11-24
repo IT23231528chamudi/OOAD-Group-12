@@ -1,72 +1,56 @@
-import React, { useState } from "react";
-import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaEdit } from "react-icons/fa";
+import axios from "axios";
 
 const SalesTable = () => {
-    const [data, setData] = useState([
-        { sales_id: 1, product_id: 101, quantity: 2, sale_date: "2024-11-01", unit_price: 50, total_price: 100 },
-        { sales_id: 2, product_id: 102, quantity: 1, sale_date: "2024-11-10", unit_price: 30, total_price: 30 },
-    ]);
+    const [data, setData] = useState([]);
+    const [selectedRow, setSelectedRow] = useState(null);
+    const [statuses] = useState(["Pending", "Approved", "Delivery", "Rejected"]);
 
-    const [selectedRow, setSelectedRow] = useState(null); // For Edit pop-up management
-    const [showCreateForm, setShowCreateForm] = useState(false); // For Create form
-    const [newRow, setNewRow] = useState({
-        sales_id: "",
-        product_id: "",
-        quantity: "",
-        sale_date: "",
-        unit_price: "",
-        total_price: "",
-    });
+    // Fetch sales data
+    useEffect(() => {
+        axios
+            .get("http://localhost:8081/api/sales")
+            .then((response) => {
+                const normalizedData = response.data.map((item) => ({
+                    salesId: item.salesId,
+                    productId: item.productId,
+                    quantity: item.quantity,
+                    saleDate: item.saleDate,
+                    unitPrice: item.unitPrice,
+                    totalPrice: item.totalPrice,
+                    status: item.status || "Pending", // Add status if not present
+                }));
+                setData(normalizedData);
+            })
+            .catch((error) => {
+                console.error("Error fetching sales data:", error);
+            });
+    }, []);
 
-    // Open the edit pop-up
+    const handleStatusChange = (salesId, newStatus) => {
+        const updatedData = data.map((row) =>
+            row.salesId === salesId ? { ...row, status: newStatus } : row
+        );
+        setData(updatedData);
+
+        // Optionally, send an update to the backend
+        axios
+            .put(`http://localhost:8081/api/sales/${salesId}/${newStatus}`)
+            .then(() => console.log("Status updated successfully"))
+            .catch((error) => console.error("Error updating status:", error));
+    };
+
     const openPopup = (id) => {
         setSelectedRow(id);
     };
 
-    // Close the edit pop-up
     const closePopup = () => {
         setSelectedRow(null);
-        setShowCreateForm(false);
-    };
-
-    // Handle input changes in the Create form
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewRow({ ...newRow, [name]: value });
-    };
-
-    // Add the new row to the table
-    const handleCreateRow = () => {
-        const newEntry = {
-            ...newRow,
-            sales_id: parseInt(newRow.sales_id),
-            product_id: parseInt(newRow.product_id),
-            quantity: parseInt(newRow.quantity),
-            unit_price: parseFloat(newRow.unit_price),
-            total_price: parseFloat(newRow.total_price),
-        };
-        setData([...data, newEntry]);
-        setNewRow({
-            sales_id: "",
-            product_id: "",
-            quantity: "",
-            sale_date: "",
-            unit_price: "",
-            total_price: "",
-        });
-        setShowCreateForm(false);
-    };
-
-    // Delete the selected row
-    const handleDelete = () => {
-        const updatedData = data.filter((row) => row.sales_id !== selectedRow);
-        setData(updatedData);
-        closePopup();
     };
 
     return (
         <div className="app-container" style={{ display: "flex" }}>
-            {/* Admin Panel Sidebar */}
             <div className="sidebar">
                 <h3>Admin Panel</h3>
                 <ul>
@@ -77,8 +61,7 @@ const SalesTable = () => {
                 </ul>
             </div>
 
-            {/* Main Content */}
-            <div className="content" style={{display: "flex", flexDirection: "column" }}>
+            <div className="content" style={{ display: "flex", flexDirection: "column" }}>
                 <h1>Sales Table</h1>
                 <table className="sales-table">
                     <thead>
@@ -89,115 +72,44 @@ const SalesTable = () => {
                             <th>Sale Date</th>
                             <th>Unit Price</th>
                             <th>Total Price</th>
-                            <th>Actions</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map((row) => (
-                            <tr key={row.sales_id}>
-                                <td>{row.sales_id}</td>
-                                <td>{row.product_id}</td>
+                            <tr key={row.salesId}>
+                                <td>{row.salesId}</td>
+                                <td>{row.productId}</td>
                                 <td>{row.quantity}</td>
-                                <td>{row.sale_date}</td>
-                                <td>{row.unit_price}</td>
-                                <td>{row.total_price}</td>
+                                <td>{new Date(row.saleDate).toLocaleDateString()}</td>
+                                <td>{row.unitPrice}</td>
+                                <td>{row.totalPrice}</td>
                                 <td>
-                                    <button className="edit-btn" onClick={() => openPopup(row.sales_id)}>
-                                        <FaEdit /> Edit
-                                    </button>
+                                    <select
+                                        value={row.status}
+                                        onChange={(e) => handleStatusChange(row.salesId, e.target.value)}
+                                    >
+                                        {statuses.map((status) => (
+                                            <option key={status} value={status}>
+                                                {status}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
 
-                {/* Pop-up for Edit Options */}
                 {selectedRow && (
                     <div className="popup">
                         <div className="popup-content">
                             <h3>Edit Options</h3>
                             <p>Actions for Sales ID: {selectedRow}</p>
                             <div className="popup-actions">
-                                <button className="add-btn" onClick={() => setShowCreateForm(true)}>
-                                    <FaPlus /> Add New Row
+                                <button className="close-btn" onClick={closePopup}>
+                                    Close
                                 </button>
-                                <button className="delete-btn" onClick={handleDelete}>
-                                    <FaTrash /> Delete Row
-                                </button>
-                            </div>
-                            <button className="close-btn" onClick={closePopup}>
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                )}
-
-                {/* Create Form Pop-up */}
-                {showCreateForm && (
-                    <div className="popup">
-                        <div className="popup-content">
-                            <h3>Create New Row</h3>
-                            <form>
-                                <div className="form-group">
-                                    <label>Sales ID:</label>
-                                    <input
-                                        type="number"
-                                        name="sales_id"
-                                        value={newRow.sales_id}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Product ID:</label>
-                                    <input
-                                        type="number"
-                                        name="product_id"
-                                        value={newRow.product_id}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Quantity:</label>
-                                    <input
-                                        type="number"
-                                        name="quantity"
-                                        value={newRow.quantity}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Sale Date:</label>
-                                    <input
-                                        type="date"
-                                        name="sale_date"
-                                        value={newRow.sale_date}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Unit Price:</label>
-                                    <input
-                                        type="number"
-                                        step="0.01"
-                                        name="unit_price"
-                                        value={newRow.unit_price}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Total Price:</label>
-                                    <input
-                                        type="number"
-                                        step="0.01"
-                                        name="total_price"
-                                        value={newRow.total_price}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                            </form>
-                            <div className="popup-actions">
-                                <button className="confirm-btn" onClick={handleCreateRow}>Enter</button>
-                                <button className="cancel-btn" onClick={closePopup}>Cancel</button>
                             </div>
                         </div>
                     </div>

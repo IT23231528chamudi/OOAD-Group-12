@@ -16,7 +16,7 @@ import RegistrationForm from "./components/Product/RegistrationForm";
 import CustomerReviews from "./components/Product/CustomerReviews";
 import ProductDetail from "./components/Product/ProductDetail";
 import ProfileIcon from "./components/ProfileIcon";
-
+import UserProfile from "./screens/UserProfile";
  
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
             <Route path="/about" element={<About/>}/>
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/shop" element={<Shop/>}/>
-            <Route path="/product" element={<ProductOverview/>}/>
+            <Route path="/product/:id" element={<ProductOverview />} />
             <Route path="/shopping-cart" element={<ShoppingCart/>}/>
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/sales" element={<SalesTable />} />
@@ -36,6 +36,7 @@ function App() {
             <Route path="/CustomerReviews" element={<CustomerReviews />} />
             <Route path="/ProductDetail" element={<ProductDetail />} />
             <Route path="/ProfileIcon" element={<ProfileIcon />} />
+            <Route path="/user" element={<UserProfile/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
