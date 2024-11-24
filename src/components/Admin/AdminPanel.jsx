@@ -1,26 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
+import axios from "axios";
 
 const AdminPanel = () => {
-    // Dummy data for the inventory table
-    const [inventory, setInventory] = useState([
-        {
-            Product_ID: 1,
-            Product_Name: "Pillow",
-            Price: 20.99,
-            Product_Size: "Medium",
-            Category_ID: 101,
-            Stock_Quantity: 50,
-        },
-        {
-            Product_ID: 2,
-            Product_Name: "Duvet",
-            Price: 45.99,
-            Product_Size: "Large",
-            Category_ID: 102,
-            Stock_Quantity: 30,
-        },
-    ]);
+    // State for the inventory table
+    const [inventory, setInventory] = useState([]);
 
     // State for the selected row and pop-up visibility
     const [selectedRow, setSelectedRow] = useState(null);
@@ -28,16 +12,36 @@ const AdminPanel = () => {
 
     // State for new row data
     const [newRow, setNewRow] = useState({
-        Product_ID: "",
-        Product_Name: "",
-        Price: "",
-        Product_Size: "",
-        Category_ID: "",
-        Stock_Quantity: "",
+        productName: "",
+        productSize: "",
+        price: "",
+        categoryID: "",
+        stockQuantity: "",
+        productImage: "", // Optional, you may choose to add it later
     });
 
-    // Open the edit pop-up
+    useEffect(() => {
+        // Fetch inventory data from the backend
+        axios.get("http://localhost:8081/api/products")
+            .then(response => {
+                setInventory(response.data);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the products:", error);
+            });
+    }, []);
+
+    // Open the edit pop-up and load the data for the selected product
     const openPopup = (id) => {
+        const productToEdit = inventory.find(item => item.productID === id);
+        setNewRow({
+            productName: productToEdit.productName,
+            productSize: productToEdit.productSize,
+            price: productToEdit.price,
+            categoryID: productToEdit.categoryID,
+            stockQuantity: productToEdit.stockQuantity,
+            productImage: productToEdit.productImage,
+        });
         setSelectedRow(id);
     };
 
@@ -45,40 +49,66 @@ const AdminPanel = () => {
     const closePopup = () => {
         setSelectedRow(null);
         setShowCreateForm(false);
+        setNewRow({
+            productName: "",
+            productSize: "",
+            price: "",
+            categoryID: "",
+            stockQuantity: "",
+            productImage: "",
+        });
     };
 
-    // Handle input change for the create form
+    // Handle input change for the form
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewRow({ ...newRow, [name]: value });
     };
 
-    // Add the new row to the inventory
-    const handleCreateRow = () => {
+    // Add a new row or update an existing one
+    const handleCreateOrUpdateRow = () => {
         const newEntry = {
-            ...newRow,
-            Product_ID: parseInt(newRow.Product_ID),
-            Price: parseFloat(newRow.Price),
-            Stock_Quantity: parseInt(newRow.Stock_Quantity),
-            Category_ID: parseInt(newRow.Category_ID),
+            productName: newRow.productName,
+            productSize: newRow.productSize,
+            price: parseFloat(newRow.price),
+            categoryID: parseInt(newRow.categoryID),
+            stockQuantity: parseInt(newRow.stockQuantity),
+            productImage: newRow.productImage,
         };
-        setInventory([...inventory, newEntry]);
-        setNewRow({
-            Product_ID: "",
-            Product_Name: "",
-            Price: "",
-            Product_Size: "",
-            Category_ID: "",
-            Stock_Quantity: "",
-        });
-        setShowCreateForm(false);
+
+        if (selectedRow) {
+            // Update existing product
+            axios.put(`http://localhost:8081/api/products/${selectedRow}`, newEntry)
+                .then(() => {
+                    axios.get("http://localhost:8081/api/products")
+                        .then(response => setInventory(response.data))
+                        .catch(error => console.error("Error fetching updated products", error));
+                    closePopup();
+                })
+                .catch(error => console.error("Error updating product", error));
+        } else {
+            // Add new product
+            axios.post("http://localhost:8081/api/products", newEntry)
+                .then(() => {
+                    axios.get("http://localhost:8081/api/products")
+                        .then(response => setInventory(response.data))
+                        .catch(error => console.error("Error fetching updated products", error));
+                    closePopup();
+                })
+                .catch(error => console.error("Error creating product", error));
+        }
     };
 
     // Delete a row
-    const handleDeleteRow = () => {
-        const updatedInventory = inventory.filter((item) => item.Product_ID !== selectedRow);
-        setInventory(updatedInventory);
-        closePopup();
+    const handleDeleteRow = (selectedRow) => {
+        console.log("Deleted Product ID:", selectedRow);
+        axios.delete(`http://localhost:8081/api/products/${selectedRow}`)
+            .then(() => {
+                const updatedInventory = inventory.filter(item => item.productID !== selectedRow);
+                setInventory(updatedInventory);
+                closePopup();
+            })
+            .catch(error => console.error("Error deleting product", error));
     };
 
     return (
@@ -92,8 +122,15 @@ const AdminPanel = () => {
                     <li>Reports</li>
                 </ul>
             </div>
+
             <div className="content" style={{ display: "flex", flexDirection: "column" }}>
                 <h1>Inventory Management</h1>
+
+                {/* Button to Add a New Row */}
+                <button className="add-btn" onClick={() => setShowCreateForm(true)}>
+                    <FaPlus /> Add New Row
+                </button>
+
                 <div className="table-container">
                     <table className="inventory-table">
                         <thead>
@@ -109,16 +146,19 @@ const AdminPanel = () => {
                         </thead>
                         <tbody>
                             {inventory.map((item) => (
-                                <tr key={item.Product_ID}>
-                                    <td>{item.Product_ID}</td>
-                                    <td>{item.Product_Name}</td>
-                                    <td>{item.Price.toFixed(2)}</td>
-                                    <td>{item.Product_Size}</td>
-                                    <td>{item.Category_ID}</td>
-                                    <td>{item.Stock_Quantity}</td>
+                                <tr key={item.productID}>
+                                    <td>{item.productID}</td>
+                                    <td>{item.productName}</td>
+                                    <td>{item.price ? item.price.toFixed(2) : "N/A"}</td>
+                                    <td>{item.productSize}</td>
+                                    <td>{item.categoryID}</td>
+                                    <td>{item.stockQuantity}</td>
                                     <td>
-                                        <button className="edit-btn" onClick={() => openPopup(item.Product_ID)}>
+                                        <button className="edit-btn" onClick={() => openPopup(item.productID)}>
                                             <FaEdit /> Edit
+                                        </button>
+                                        <button className="delete-btn" style={{marginLeft: "12px"}} onClick={() => handleDeleteRow(item.productID)}>
+                                            <FaTrash />
                                         </button>
                                     </td>
                                 </tr>
@@ -128,48 +168,27 @@ const AdminPanel = () => {
                 </div>
             </div>
 
-            {/* Pop-up for edit options */}
-            {selectedRow && (
+            {/* Pop-up for edit or create options */}
+            {(showCreateForm || selectedRow) && (
                 <div className="popup">
                     <div className="popup-content">
-                        <h3>Edit Options</h3>
-                        <p>Choose an action for Product ID: {selectedRow}</p>
-                        <div className="popup-actions">
-                            <button className="add-btn" onClick={() => setShowCreateForm(true)}>
-                                <FaPlus /> Add New Row
-                            </button>
-                            <button className="delete-btn" onClick={handleDeleteRow}>
-                                <FaTrash /> Delete
-                            </button>
-                        </div>
-                        <button className="close-btn" onClick={closePopup}>
-                            Close
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            {/* Pop-up for create form */}
-            {showCreateForm && (
-                <div className="popup">
-                    <div className="popup-content">
-                        <h3>Create New Row</h3>
+                        <h3>{selectedRow ? "Edit Product" : "Create New Row"}</h3>
                         <form>
-                            <div className="form-group">
-                                <label>Product ID:</label>
-                                <input
-                                    type="number"
-                                    name="Product_ID"
-                                    value={newRow.Product_ID}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
                             <div className="form-group">
                                 <label>Product Name:</label>
                                 <input
                                     type="text"
-                                    name="Product_Name"
-                                    value={newRow.Product_Name}
+                                    name="productName"
+                                    value={newRow.productName}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Product Size:</label>
+                                <input
+                                    type="text"
+                                    name="productSize"
+                                    value={newRow.productSize}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -178,17 +197,8 @@ const AdminPanel = () => {
                                 <input
                                     type="number"
                                     step="0.01"
-                                    name="Price"
-                                    value={newRow.Price}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Product Size:</label>
-                                <input
-                                    type="text"
-                                    name="Product_Size"
-                                    value={newRow.Product_Size}
+                                    name="price"
+                                    value={newRow.price}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -196,8 +206,8 @@ const AdminPanel = () => {
                                 <label>Category ID:</label>
                                 <input
                                     type="number"
-                                    name="Category_ID"
-                                    value={newRow.Category_ID}
+                                    name="categoryID"
+                                    value={newRow.categoryID}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -205,15 +215,24 @@ const AdminPanel = () => {
                                 <label>Stock Quantity:</label>
                                 <input
                                     type="number"
-                                    name="Stock_Quantity"
-                                    value={newRow.Stock_Quantity}
+                                    name="stockQuantity"
+                                    value={newRow.stockQuantity}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Product Image (Optional):</label>
+                                <input
+                                    type="text"
+                                    name="productImage"
+                                    value={newRow.productImage}
                                     onChange={handleInputChange}
                                 />
                             </div>
                         </form>
                         <div className="popup-actions">
-                            <button className="confirm-btn" onClick={handleCreateRow}>
-                                Enter
+                            <button className="confirm-btn" onClick={handleCreateOrUpdateRow}>
+                                {selectedRow ? "Update" : "Add"} Product
                             </button>
                             <button className="cancel-btn" onClick={closePopup}>
                                 Cancel
