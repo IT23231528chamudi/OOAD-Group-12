@@ -18,16 +18,17 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home/>}/>
-
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/registrationform" element={<RegistrationForm />} />
             <Route path="/CustomerReviews" element={<CustomerReviews />} />
             <Route path="/ProfileIcon" element={<ProfileIcon />} />
+            <Route path="/login" element={<Login/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
   );
 }
+
 
 export default App;
