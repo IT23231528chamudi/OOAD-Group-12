@@ -2070,7 +2070,7 @@ body {
 
 
 
-/*userprofile**/
+/*User Screen*/
 /* Container for the entire profile */
 .user-profile-container-custom {
   display: flex;
@@ -2096,24 +2096,25 @@ body {
   color: #111;
 }
 
-.user-profile-left-custom .user-title-custom {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  color: #555;
+.user-profile-left-custom .user-contact-info-custom {
+  margin-top: 20px;
 }
 
-.user-profile-left-custom .user-contact-info-custom p {
-  margin: 10px 0;
+.user-profile-left-custom .form-group {
+  margin-bottom: 15px;
 }
 
-.user-profile-left-custom .user-social-links-custom a {
-  text-decoration: none;
-  color: #0066cc;
-  margin: 0 5px;
+.user-profile-left-custom .form-group label {
+  display: block;
+  margin-bottom: 5px;
 }
 
-.user-profile-left-custom .user-social-links-custom a:hover {
-  text-decoration: underline;
+.user-profile-left-custom .form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .user-profile-left-custom .view-profile-button-custom {
@@ -2142,23 +2143,6 @@ body {
   position: relative;
 }
 
-.user-profile-right-custom .download-resume-button-custom {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #0066cc;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.user-profile-right-custom .download-resume-button-custom:hover {
-  background-color: #005bb5;
-}
-
 .user-profile-right-custom .profile-image-container-custom {
   background-color: #ffffff;
   padding: 20px;
@@ -2172,4 +2156,3 @@ body {
   border-radius: 50%;
   object-fit: cover;
 }
-

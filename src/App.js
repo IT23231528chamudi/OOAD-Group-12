@@ -17,7 +17,7 @@ import CustomerReviews from "./components/Product/CustomerReviews";
 import ProductDetail from "./components/Product/ProductDetail";
 import ProfileIcon from "./components/ProfileIcon";
 import UserProfile from "./screens/UserProfile";
-
+ 
 
 function App() {
   return (
