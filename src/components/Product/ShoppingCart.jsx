@@ -179,7 +179,7 @@ const ShoppingCart = () => {
 
                 {/* PayPal Button Section */}
                 {cartItems.length > 0 && (
-                    <PayPalScriptProvider options={{ "client-id": "AVI65tOWTkV-pNjU3etkZnwO-55p66QnYq2lZ_VSP7fO-DRTIoURD1Lc9_OukLPln_-gUTF74mIeQoks" }}>
+                    <PayPalScriptProvider options={{ "client-id": "your_client-id" }}>
                         <PayPalButtons
                             style={{ layout: 'vertical' }}
                             amount={subtotal.toFixed(2)} // Total amount to be paid
