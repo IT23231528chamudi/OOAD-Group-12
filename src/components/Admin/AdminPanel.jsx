@@ -78,7 +78,7 @@ const AdminPanel = () => {
 
         if (selectedRow) {
             // Update existing product
-            axios.put(http://localhost:8081/api/products/${selectedRow}, newEntry)
+            axios.put(`http://localhost:8081/api/products/${selectedRow}`, newEntry)
                 .then(() => {
                     axios.get("http://localhost:8081/api/products")
                         .then(response => setInventory(response.data))
@@ -102,7 +102,7 @@ const AdminPanel = () => {
     // Delete a row
     const handleDeleteRow = (selectedRow) => {
         console.log("Deleted Product ID:", selectedRow);
-        axios.delete(http://localhost:8081/api/products/${selectedRow})
+        axios.delete(`http://localhost:8081/api/products/${selectedRow}`)
             .then(() => {
                 const updatedInventory = inventory.filter(item => item.productID !== selectedRow);
                 setInventory(updatedInventory);
@@ -134,35 +134,35 @@ const AdminPanel = () => {
                 <div className="table-container">
                     <table className="inventory-table">
                         <thead>
-                            <tr>
-                                <th>Product ID</th>
-                                <th>Product Name</th>
-                                <th>Price</th>
-                                <th>Product Size</th>
-                                <th>Category ID</th>
-                                <th>Stock Quantity</th>
-                                <th>Actions</th>
-                            </tr>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Product Size</th>
+                            <th>Category ID</th>
+                            <th>Stock Quantity</th>
+                            <th>Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {inventory.map((item) => (
-                                <tr key={item.productID}>
-                                    <td>{item.productID}</td>
-                                    <td>{item.productName}</td>
-                                    <td>{item.price ? item.price.toFixed(2) : "N/A"}</td>
-                                    <td>{item.productSize}</td>
-                                    <td>{item.categoryID}</td>
-                                    <td>{item.stockQuantity}</td>
-                                    <td>
-                                        <button className="edit-btn" onClick={() => openPopup(item.productID)}>
-                                            <FaEdit /> Edit
-                                        </button>
-                                        <button className="delete-btn" style={{marginLeft: "12px"}} onClick={() => handleDeleteRow(item.productID)}>
-                                            <FaTrash />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                        {inventory.map((item) => (
+                            <tr key={item.productID}>
+                                <td>{item.productID}</td>
+                                <td>{item.productName}</td>
+                                <td>{item.price ? item.price.toFixed(2) : "N/A"}</td>
+                                <td>{item.productSize}</td>
+                                <td>{item.categoryID}</td>
+                                <td>{item.stockQuantity}</td>
+                                <td>
+                                    <button className="edit-btn" onClick={() => openPopup(item.productID)}>
+                                        <FaEdit /> Edit
+                                    </button>
+                                    <button className="delete-btn" style={{marginLeft: "12px"}} onClick={() => handleDeleteRow(item.productID)}>
+                                        <FaTrash />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>
