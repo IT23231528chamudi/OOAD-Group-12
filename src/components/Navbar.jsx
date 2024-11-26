@@ -1,17 +1,51 @@
-import React from 'react';
-import { Layout, Menu, Badge } from 'antd';
+import React, { useState } from 'react';
+import { Layout, Menu, Badge, Input } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
-
+import axios from 'axios';
 
 const { Header } = Layout;
 
-const Navbar = () => {
+const Navbar = ({ location, onSearch }) => {
+    const router = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearch = (e) => {
+        const value = e.target.value; // Access value correctly
+        setSearchTerm(value);
+
+        if (location.pathname === '/shop') {
+            onSearch(value); // Notify Layout about the search term
+        }
+    };
+
+    const handleOnCLick = () => {
+        router('/shopping-cart');
+    }
+
     return (
-        <Header style={{ position: 'fixed', zIndex: 1, width: '100%', height: '64px', display: 'flex', alignItems: 'center', backgroundColor: '#001529' }}>
+        <Header
+            style={{
+                position: 'fixed',
+                zIndex: 1,
+                width: '100%',
+                height: '64px',
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: '#001529',
+            }}
+        >
             {/* Logo */}
-            <div className="logo" style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold', marginRight: 'auto' }}>
+            <div
+                className="logo"
+                style={{
+                    color: 'white',
+                    fontSize: '1.5rem',
+                    fontWeight: 'bold',
+                    marginRight: 'auto',
+                }}
+            >
                 BedStore
             </div>
 
@@ -34,17 +68,33 @@ const Navbar = () => {
                 <Menu.Item key="4">
                     <Link to="/contact">Contact</Link>
                 </Menu.Item>
-
             </Menu>
 
+            {/* Search Bar - Only on Shop Route */}
+            {location.pathname === '/shop' && (
+                <Input
+                    placeholder="Search for products..."
+                    value={searchTerm}
+                    onChange={handleSearch} // Pass the full event object
+                    style={{
+                        borderRadius: '20px',
+                        width: '300px',
+                        marginRight: '16px',
+                        border: 'none',
+                        padding: '8px 16px',
+                    }}
+                />
+            )}
+
             {/* Cart Icon with Badge */}
-            <Badge count={5} offset={[10, 0]}>
-                <ShoppingCartOutlined style={{ fontSize: '1.5rem', color: 'white' ,marginRight: '16px' }} />
-
-                {/* Profile Icon */}
-                <ProfileIcon />
-
+            <Badge count={5} offset={[10, 0]} onClick={handleOnCLick}>
+                <ShoppingCartOutlined
+                    style={{ fontSize: '1.5rem', color: 'white', marginRight: '16px' }}
+                />
             </Badge>
+
+            {/* Profile Icon */}
+            <ProfileIcon />
         </Header>
     );
 };

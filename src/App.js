@@ -17,6 +17,7 @@ import CustomerReviews from "./components/Product/CustomerReviews";
 import ProductDetail from "./components/Product/ProductDetail";
 import ProfileIcon from "./components/ProfileIcon";
 import UserProfile from "./screens/UserProfile";
+import Category from "./screens/Category";
  
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route path="/ProductDetail" element={<ProductDetail />} />
             <Route path="/ProfileIcon" element={<ProfileIcon />} />
             <Route path="/user" element={<UserProfile/>}/>
+            <Route path="/category/:id" element={<Category/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

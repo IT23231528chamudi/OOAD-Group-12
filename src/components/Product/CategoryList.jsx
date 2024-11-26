@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import ProductCard from './ProductCard';
+import ProductCard from '../ProductCard';
 import axios from 'axios';
 import {useOutletContext} from "react-router-dom";
 
-const ProductList = () => {
+const CategoryList = ({id}) => {
     const { searchTerm } = useOutletContext(); // Access searchTerm from context
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ const ProductList = () => {
             try {
                 const url = searchTerm.trim()
                     ? `http://localhost:8081/api/products/search?name=${searchTerm}`
-                    : 'http://localhost:8081/api/products';
+                    : `http://localhost:8081/api/products/category/${id}`;
 
                 const response = await axios.get(url);
 
@@ -57,4 +57,4 @@ const ProductList = () => {
     );
 };
 
-export default ProductList;
+export default CategoryList;
