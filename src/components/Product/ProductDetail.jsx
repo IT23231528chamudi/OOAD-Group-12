@@ -64,8 +64,8 @@ const ProductDetail = () => {
                 productId: product.productID,
                 quantity: quantity,
                 saleDate: new Date().toISOString(), // Sale date
-                unitPrice: product.price / 100, // Unit price in dollars
-                totalPrice: totalPrice / 100, // Total price in dollars
+                unitPrice: product.price, // Unit price in dollars
+                totalPrice: totalPrice, // Total price in dollars
             }
         };
 
