@@ -18,7 +18,7 @@ import ProductDetail from "./components/Product/ProductDetail";
 import ProfileIcon from "./components/ProfileIcon";
 import UserProfile from "./screens/UserProfile";
 import Category from "./screens/Category";
-
+ 
 
 function App() {
   return (
