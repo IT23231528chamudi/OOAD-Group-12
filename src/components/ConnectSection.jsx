@@ -11,7 +11,7 @@ const ConnectSection = () => {
                             Contact us with any query or any idea.
                         </p>
                     </div>
-                    <a href="#" className="connect-button">
+                    <a href="http://localhost:3000/contact" className="connect-button">
                         Get In Touch
                         <svg
                             width="19"

@@ -12,7 +12,9 @@ const CommunitySection = () => {
                         <p className="description">
                             Discover the perfect bedsheets to elevate your bedroom decor. Our collections are crafted from the finest materials, designed to bring warmth, style, and comfort into every room.
                         </p>
+                        <a href="http://localhost:3000/about">
                         <button className="get-started-btn">Shop Now</button>
+                        </a>
                     </div>
                     <img
                         className="image"

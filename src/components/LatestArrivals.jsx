@@ -47,7 +47,7 @@ const LatestArrivals = () => {
                             <div className="product-details">
                                 <div className="product-header">
                                     <h6 className="product-name">{product.productName}</h6>
-                                    <h6 className="product-price">${(product.price / 100).toFixed(2)}</h6>
+                                    <h6 className="product-price">Rs. {(product.price)}</h6>
                                 </div>
                                 <p className="product-description">Size: {product.productSize}</p>
                             </div>

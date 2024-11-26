@@ -12,16 +12,16 @@ const CategorySection = () => {
             imageUrl: 'https://i5.walmartimages.com/asr/e4cedff5-ce0f-409d-8c1e-b98c9ed48f7f.66eae326118728351758137947905305.jpeg',
         },
         {
-            id: 2, // Add unique id for Bed Linen
-            title: 'Bed Linen',
-            description: 'Soft and supportive',
-            imageUrl: 'https://i0.wp.com/eikeiusa.com/wp-content/uploads/2022/06/Corduroy-Charcoal-Classic-Velvet-Corduroy-Pure-Cotton-Luxury-Duvet-Cover-Set-scaled.jpg?fit=2560%2C2560&ssl=1',
-        },
-        {
-            id: 3, // Add unique id for Bath Linen
+            id: 2, // Add unique id for Bath Linen
             title: 'Bath Linen',
             description: 'Elegant and durable options',
             imageUrl: 'https://homelabels.us/cdn/shop/files/girl_standing_with_blue_cabana.jpg?v=1717568853',
+        },
+        {
+            id: 3, // Add unique id for Bed Linen
+            title: 'Bed Linen',
+            description: 'Soft and supportive',
+            imageUrl: 'https://i0.wp.com/eikeiusa.com/wp-content/uploads/2022/06/Corduroy-Charcoal-Classic-Velvet-Corduroy-Pure-Cotton-Luxury-Duvet-Cover-Set-scaled.jpg?fit=2560%2C2560&ssl=1',
         },
     ];
 

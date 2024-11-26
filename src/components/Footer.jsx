@@ -13,11 +13,10 @@ const Footer = () => {
                 </div>
 
                 <ul className="footer-links">
-                    <li><a href="#" className="footer-link">Pagedone</a></li>
-                    <li><a href="#" className="footer-link">Products</a></li>
+                    <li><a href="http://localhost:3000/shop" className="footer-link">Products</a></li>
                     <li><a href="#" className="footer-link">Resources</a></li>
                     <li><a href="#" className="footer-link">Blogs</a></li>
-                    <li><a href="#" className="footer-link">Support</a></li>
+                    <li><a href="http://localhost:3000/contact" className="footer-link">Support</a></li>
                 </ul>
 
                 <div className="footer-socials">
@@ -44,7 +43,7 @@ const Footer = () => {
                 </div>
 
                 <span className="footer-copyright">
-                    ©<a href="https://pagedone.io/" className="footer-copyright-link">BedStore</a> 2024, All rights reserved.
+                    ©<a href="https://pagedone.io/" className="footer-copyright-link">SPLENDOURLUX</a> 2024, All rights reserved.
                 </span>
             </div>
         </footer>

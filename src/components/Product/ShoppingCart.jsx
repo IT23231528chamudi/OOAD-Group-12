@@ -157,7 +157,7 @@ const ShoppingCart = () => {
                                         </button>
                                     </div>
                                     <h6 className="item-price">
-                                        ${item.totalPrice.toFixed(2)}
+                                        Rs. {item.totalPrice.toFixed(2)}
                                     </h6>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@ const ShoppingCart = () => {
                     <div className="subtotal">
                         <h5 className="subtotal-title">Subtotal</h5>
                         <div className="subtotal-details">
-                            <h6 className="subtotal-price">${subtotal.toFixed(2)}</h6>
+                            <h6 className="subtotal-price">Rs. {subtotal.toFixed(2)}</h6>
                         </div>
                     </div>
                 )}

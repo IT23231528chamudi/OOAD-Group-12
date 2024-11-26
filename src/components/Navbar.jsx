@@ -46,7 +46,7 @@ const Navbar = ({ location, onSearch }) => {
                     marginRight: 'auto',
                 }}
             >
-                BedStore
+                SPLENDOURLUX
             </div>
 
             {/* Centered Menu Links */}
@@ -87,7 +87,7 @@ const Navbar = ({ location, onSearch }) => {
             )}
 
             {/* Cart Icon with Badge */}
-            <Badge count={5} offset={[10, 0]} onClick={handleOnCLick}>
+            <Badge offset={[10, 0]} onClick={handleOnCLick}>
                 <ShoppingCartOutlined
                     style={{ fontSize: '1.5rem', color: 'white', marginRight: '16px' }}
                 />

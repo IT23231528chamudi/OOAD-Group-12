@@ -55,8 +55,8 @@ const SalesTable = () => {
                 <h3>Admin Panel</h3>
                 <ul>
                     <li>Dashboard</li>
-                    <li>Inventory</li>
-                    <li>Sales</li>
+                    <li><a href="http://localhost:3000/admin">Inventory</a></li>
+                    <li><a href="http://localhost:3000/sales">Sales</a></li>
                     <li>Reports</li>
                 </ul>
             </div>

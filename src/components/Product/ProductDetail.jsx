@@ -97,7 +97,7 @@ const ProductDetail = () => {
                         <p className="category">Category {product.categoryID}</p>
                         <h2 className="product-title">{product.productName}</h2>
                         <div className="price-rating">
-                            <h6 className="price">${(totalPrice / 100).toFixed(2)}</h6>
+                            <h6 className="price">Rs. {(totalPrice)}</h6>
                         </div>
                         <p className="product-description">
                             {/* Add a product description here if available */}

@@ -20,15 +20,15 @@ const ContactSection = () => {
                         <div className="contact-card">
                             <div className="contact-item">
                                 <FaPhoneAlt className="contact-icon" />
-                                <h5 className="contact-info">470-601-1911</h5>
+                                <h5 className="contact-info">011-234-5678</h5>
                             </div>
                             <div className="contact-item">
                                 <FaEnvelope className="contact-icon" />
-                                <h5 className="contact-info">Pagedone1234@gmail.com</h5>
+                                <h5 className="contact-info">Splendourlux@gmail.com</h5>
                             </div>
                             <div className="contact-item">
                                 <FaMapMarkerAlt className="contact-icon" />
-                                <h5 className="contact-info">789 Oak Lane, Lakeside, TX 54321</h5>
+                                <h5 className="contact-info">No. 234, Chapel Road, Colombo</h5>
                             </div>
                             <div className="contact-social-links">
                                 <a href="#" className="contact-social-link">
